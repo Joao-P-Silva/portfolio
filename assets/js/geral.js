@@ -135,11 +135,15 @@ function initSignalFormValidation() {
 }
 
 function detectUserNode() {
-	const nodeElement = document.getElementById('user-node') || document.getElementById('user-mode');
-	if (!nodeElement) return;
+	const headerNode = document.getElementById('user-mode');
+	const sidebarNode = document.getElementById('user-node');
+	const nodes = [headerNode, sidebarNode].filter(Boolean);
+	if (!nodes.length) return;
 
-	nodeElement.innerText = 'SCANNING...';
-	nodeElement.classList.add('blink');
+	nodes.forEach((node) => {
+		node.innerText = 'SCANNING...';
+		node.classList.add('blink');
+	});
 
 	const userAgent = window.navigator.userAgent.toLowerCase();
 	let detectedNode = 'UNKNOWN_NODE';
@@ -151,9 +155,11 @@ function detectUserNode() {
 	else if (userAgent.includes('iphone')) detectedNode = 'MOBILE_IOS';
 
 	setTimeout(() => {
-		nodeElement.classList.remove('blink');
-		nodeElement.innerText = detectedNode;
-		nodeElement.style.color = 'var(--azul-bright)';
+		nodes.forEach((node) => {
+			node.classList.remove('blink');
+			node.innerText = detectedNode;
+			node.style.color = 'var(--azul-bright)';
+		});
 	}, 10000);
 }
 
