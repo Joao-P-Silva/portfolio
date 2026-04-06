@@ -162,7 +162,7 @@ function openPreview(url, title) {
 	const previewFrame = document.getElementById('previewFrame');
 	if (!modalTitle || !previewFrame || !myModal) return;
 
-	modalTitle.innerText = `PROJECT_PREVIEW // ${title}`;
+	modalTitle.innerText = `${title}`;
 	currentPreviewUrl = url;
 	previewFrame.src = url;
 	myModal.show();
