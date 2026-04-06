@@ -606,6 +606,22 @@ body {
 	cursor: cell !important;
 }
 
+@media (max-width: 575.98px) {
+	.modal-dialog {
+		margin: 0.75rem;
+		max-width: 100%;
+	}
+
+	.modal-content {
+		max-height: 90vh;
+		overflow: hidden;
+	}
+
+	.modal-body {
+		overflow-y: auto;
+	}
+}
+
 .modal-header .btn-close {
 	filter: invert(1) grayscale(1) brightness(2);
 }
