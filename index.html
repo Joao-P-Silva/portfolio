@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;500&family=Plus+Jakarta+Sans:wght@300;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/geral.css">
+    <link rel="stylesheet" href="assets/css/darkmode.css">
+</head>
+
+<body class="bg-black">
+
+    <script>
+        (function () {
+            var savedTheme = localStorage.getItem('vice-theme');
+            if (savedTheme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <div class="bg-dots"></div>
+
+    <div class="siteloader">
+        <div class="orbitron percentage-bg-loader" id="percent-bg">00</div>
+        <div class="loader-wrapper-integrated">
+            <div class="core-container-loader">
+                <div class="ring-outer-loader"></div>
+                <div class="ring-middle-loader"></div>
+                <div class="logo-text-loader">LOADING</div>
+            </div>
+            <div class="status-main-loader" id="status-text">A carregar...</div>
+            <div class="log-container-loader" id="log-display"></div>
+        </div>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        <div class="scanner" aria-hidden="true"></div>
+        <div class="ctr-lines" aria-hidden="true"></div>
+
+        <header class="container-fliud py-3 border-bottom-rosa sticky-top bg-black-80">
+    			<nav class="d-flex justify-content-between align-items-center px-3 px-md-5">
+                <div class="logo-area">
+                    <span class="text-rosa fira-code x-small">AUTH:</span>
+                    <span class="text-azul fw-black orbitron ms-2">USER_001</span>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="system-stats d-none d-md-block orbitron x-small">
+                        <span class="blink text-success">●</span> CONEXAO_ATIVA // <span id="user-mode">
+                            A_VERIFICAR...</span>
+                    </div>
+                    <button id="settings-launch" class="settings-launch-btn theme-toggle-btn" type="button"
+                        data-bs-toggle="modal" data-bs-target="#settingsModal" aria-label="Abrir Definições"><i
+                            class="bi bi-sliders"></i></button>
+                    <button id="sidebar-toggle" class="settings-launch-btn theme-toggle-btn" type="button"
+                        aria-label="Abrir menu lateral">
+                        <i class="bi bi-list"></i>
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <div id="mobile-sidebar-overlay" class="mobile-sidebar-overlay" aria-hidden="true"></div>
+
+        <main class="container-fluid px-md-5 mt-4">
+            <div class="row g-4">
+                <aside class="col-lg-3 sticky-sidebar" id="profile-sidebar">
+                    <section class="module-box border-rosa mb-4">
+                        <div class="module-header bg-rosa text-black">CORE_SKILLS</div>
+                        <div class="p-4">
+                            <label class="fira-core text-rosa x-small">STUDENT</label>
+                            <div class="mt-2">
+                                <h2 class="orbitron fw-black text-white mb-0"
+                                    style="font-size: 1.5rem; letter-spacing: 2px;">
+                                    JOÃO_SILVA
+                                </h2>
+                                <p class="text-rosa fira-code x-small mt-1">> WEB_DEVELOPMENT</p>
+                                <p class="text-rosa fira-code x-small">> JUNIOR_DEV</p>
+                            </div>
+                            <div class="progress-container mt-3">
+                                <div class="progress-bar-rosa" data-progress="100" aria-label="Primary stack progress"
+                                    role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="86"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="module-box border-azul mb-4">
+                        <div class="module-header bg-azul text-white">FRONT_END</div>
+                        <div class="p-3 fira-code x-small">
+                            <div class="mb-2 text-azul">> HTML</div>
+                            <div class="mb-2 text-azul">> CSS</div>
+                            <div class="mb-2 text-azul">> JAVASCRIPT</div>
+                            <div class="mb-2 text-azul">> BOOTSTRAP</div>
+                            <div class="mb-2 text-white small">More incoming...</div>
+                        </div>
+                    </section>
+
+                    <section class="module-box border-rosa mb-4">
+                        <div class="module-header bg-rosa text-white">BACK_END</div>
+                        <div class="p-3 fira-code x-small">
+                            <div class="mb-2 text-rosa">> PHP</div>
+                            <div class="mb-2 text-rosa">> LARAVEL</div>
+                            <div class="mb-2 text-rosa">> MYSQL</div>
+                            <div class="mb-2 text-white small">More incoming...</div>
+                        </div>
+                    </section>
+                    <section class="module-box border-azul mb-4">
+                        <div class="module-header bg-azul text-white">SOCIAL_LINKS</div>
+                        <div class="p-3 fira-code x-small">
+                            <div class="mb-2 text-azul"><a href="https://github.com/" target="_blank"
+                                    class="text-azul social-link"><i class="bi bi-github"></i> GITHUB</a></div>
+                            <div class="mb-2 text-azul"><a href="https://www.linkedin.com/" target="_blank"
+                                    class="text-azul social-link"><i class="bi bi-linkedin"></i> LINKEDIN</a></div>
+                        </div>
+                    </section>
+                </aside>
+
+                <div class="col-lg-9">
+                    <section class="hero-module p-4 p-md-5 border-azul mb-5">
+                        <div class="corner-tag fira-code">V_1.0 // ERROR 404</div>
+                        <h3 class="orbitron display-3 fw-black text-white">CODE. <span class="text-azul">DESIGN.</span>
+                            CREATE. <br>
+                            <span id="typewriter" class="text-azul"></span><span class="cursor text-azul">_</span>
+                        </h3>
+                        <p class="fira-code mt-4 text-secondary">
+                            <span class="text-rosa">>> </span> WEB AND MULTIMEDIA DEVELOPMENT STUDENT AT THE POLYTECHNIC
+                            INSTITUTE OF LEIRIA
+                        </p>
+                    </section>
+
+                    <section class="mb-5">
+                        <h3 class="orbitron text-white mb-4"><span class="text-rosa">> </span>EVOLUTION_LOG</h3>
+                        <div class="module-box border-rosa p-4">
+                            <div class="timeline fira-code">
+                                <div class="timeline-item border-start border-white ps-4 pb-5 position-relative">
+                                    <span class="timeline-dot bg-white"></span>
+                                    <span class="text-white opacity-75 x-small">2024 - PRESENT</span>
+                                    <h5 class="orbitron text-white mt-1">CTEsP WEB and MULTIMEDIA DEVELOPMENT</h5>
+                                    <p class="text-secondary small">The Higher Professional Technical Course in Web and
+                                        Multimedia Development aims to train professionals able to design and implement
+                                        Web
+                                        applications and services with multimedia content, autonomously or in a team,
+                                        using
+                                        new technologies and tools.</p>
+                                    <div class="d-flex gap-2">
+                                        <span class="badge-tech-white">IPLeiria</span>
+                                        <span class="badge-tech-white">ESTG</span>
+                                        <span class="badge-tech-white">WEB DEVELOPMENT</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="projects" class="mb-5">
+                        <h3 class="orbitron text-white mb-4"><span class="text-azul">></span> ACADEMIC_REPORTS</h3>
+                        <div class="row g-4 justify-content-center">
+                            <article class="col-md-6">
+                                <div class="project-module h-100"
+                                    onclick="openPreview('assets/projects/admin_dashboard/dashboard.html', 'ADMIN_DASHBOARD_V1')"
+                                    style="cursor: cell;">
+                                    <div
+                                        class="project-img bg-azul-dim d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-terminal text-azul display-2 opacity-50"></i>
+                                    </div>
+                                    <div class="p-3 bg-black">
+                                        <span class="orbitron fw-bold text-white">ADMIN_DASHBOARD_V1</span>
+                                        <p class="fira-code x-small text-secondary mt-2">
+                                            Admin Dashboard.</p>
+                                        <div class="mt-3">
+                                            <span class="badge-tech">ADMIN_DASHBOARD</span>
+                                            <span class="badge-tech">HTML5</span>
+                                            <span class="badge-tech">CSS3</span>
+                                            <span class="badge-tech">BOOTSTRAP</span>
+                                            <span class="badge-tech">JAVASCRIPT</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="col-md-6">
+                                <div class="project-module h-100"
+                                    onclick="openPreview('assets/projects/demo-site/index.html', 'DEMO_SITE_v1')"
+                                    style="cursor: cell;">
+                                    <div
+                                        class="project-img bg-azul-dim d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-window-stack text-azul display-2 opacity-50"></i>
+                                    </div>
+                                    <div class="p-3 bg-black">
+                                        <span class="orbitron fw-bold text-white">DEMO_SITE_v1</span>
+                                        <p class="fira-code x-small text-secondary mt-2">Exemplo completo em pasta
+                                            separada com HTML, CSS e JS.</p>
+                                        <div class="mt-3">
+                                            <span class="badge-tech">FOLDER_SITE</span>
+                                            <span class="badge-tech">MODAL_PREVIEW</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="mb-5" style="cursor: cell;">
+                        <h3 id="live-lab-title" class="orbitron text-white mb-4"><span class="text-azul">></span>
+                            LIVE_LAB_TERMINAL</h3>
+                        <div class="module-box border-azul overflow-hidden">
+                            <div class="row g-0" style="min-height: 400px;">
+                                <div class="col-md-6 border-end border-azul p-0">
+                                    <div
+                                        class="bg-black-80 p-2 fira-code x-small text-azul border-bottom border-azul d-flex justify-content-between align-items-center">
+                                        <span>SOURCE_CODE.html</span>
+                                        <div class="d-inline-flex align-items-center gap-2">
+                                            <button id="lab-try-yourself" type="button"
+                                                class="lab-try-btn">TRY_YOURSELF</button>
+                                            <span class="terminal-win-controls" aria-hidden="true">
+                                                <i class="bi bi-dash"></i>
+                                                <i class="bi bi-square small"></i>
+                                                <i class="bi bi-x"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <textarea id="html-code" class="code-editor" spellcheck="false">
+                                        <style>
+                                            body { background: #000; color: #55BCE8; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+                                            .box { border: 2px solid #ED53AA; padding: 20px; box-shadow: 0 0 20px #ED53AA; animation: pulse 2s infinite; }
+                                            @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+                                        </style>
+                                        <div class="box">
+                                            <h1>HELLO IPLEIRIA_</h1>
+                                            <p>Edita este código para veres a magia...</p>
+                                        </div>
+                                    </textarea>
+                                </div>
+                                <div class="col-md-6 p-0 bg-white">
+                                    <div
+                                        class="bg-black-80 p-2 fira-code x-small text-rosa border-bottom border-azul d-flex justify-content-between align-items-center">
+                                        <span>FINAL_RENDER.exe</span>
+                                        <span class="terminal-win-controls" aria-hidden="true">
+                                            <i class="bi bi-dash"></i>
+                                            <i class="bi bi-square small"></i>
+                                            <i class="bi bi-x"></i>
+                                        </span>
+                                    </div>
+                                    <iframe id="live-preview" class="preview-window"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="module-box border-azul p-4">
+                        <div class="module-header bg-azul text-white">SEND_SIGNAL</div>
+                        <form id="send-signal-form" class="mt-4 fira-code" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="input-floating">
+                                        <input type="text" class="terminal-input w-100" id="user-id" placeholder=" "
+                                            autocomplete="off">
+                                        <label for="user-id" class="floating-label">USER_ID</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-floating">
+                                        <input type="email" class="terminal-input w-100" id="email-signal"
+                                            placeholder=" " autocomplete="off">
+                                        <label for="email-signal" class="floating-label">EMAIL_SIGNAL</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-end">
+                                    <button type="submit" class="vice-btn btn-azul mt-2">EXECUTE_SEND</button>
+                                </div>
+                                <div class="col-12">
+                                    <div id="signal-form-feedback" class="form-global-feedback x-small"
+                                        aria-live="polite"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-5 p-4 border-top-azul text-center">
+            <p class="fira-code x-small text-secondary opacity-70">
+                &copy; <span id="ano"></span> João Silva // ALL RIGHTS RESERVED.
+            </p>
+        </footer>
+    </div>
+
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-black border-azul">
+                <div class="modal-header border-bottom border-azul py-2">
+                    <h5 class="modal-title orbitron text-azul fs-6">SETTINGS_PANEL</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="d-grid gap-3">
+                        <button id="theme-toggle"
+                            class="theme-toggle-btn fira-code x-small w-100 d-flex justify-content-between align-items-center"
+                            type="button" aria-label="Alternar tema">
+                            <span class="text-start">TEMA_ATUAL</span>
+                            <span class="d-inline-flex align-items-center gap-2">
+                                <i id="theme-toggle-icon" class="bi bi-moon-stars-fill"></i>
+                                <span id="theme-toggle-text">NOITE</span>
+                            </span>
+                        </button>
+                        <button id="performance-toggle"
+                            class="theme-toggle-btn fira-code x-small w-100 d-flex justify-content-between align-items-center"
+                            type="button" aria-label="Alternar modo de performance">
+                            <span class="text-start">MODO_RENDER</span>
+                            <span class="d-inline-flex align-items-center gap-2">
+                                <i id="performance-toggle-icon" class="bi bi-grid-3x3-gap-fill"></i>
+                                <span id="performance-toggle-text">NORMAL</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content bg-black border-azul">
+                <div
+                    class="modal-header border-bottom border-azul py-2 d-flex justify-content-between align-items-center">
+                    <h5 class="modal-title orbitron text-azul fs-6" id="modalTitle">PROJECT_PREVIEW</h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <button id="preview-fullscreen-btn" type="button"
+                            class="btn btn-sm btn-outline-azul fira-code x-small">
+                            FULL_VIEW
+                        </button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body p-0" style="height: 75vh;">
+                    <iframe id="previewFrame" src="" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="onboardingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-black border-azul">
+                <div class="modal-header border-bottom border-azul py-2">
+                    <h5 class="modal-title orbitron text-azul fs-6">WELCOME_NODE</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="fira-code x-small text-secondary mb-3">
+                        >> PRIMEIRA_LIGACAO_DETETADA. Antes de explorares o sistema, tens 2 modos principais:
+                    </p>
+                    <ul class="fira-code x-small text-secondary ps-3 mb-3">
+                        <li class="mb-2"><span class="text-azul">MODO_DIA / MODO_NOITE</span> // Ajusta o tema visual do
+                            painel.</li>
+                        <li><span class="text-rosa">MODO_NORMAL / MODO_PERFORMANCE</span> // Aconcelhamos a quem tem um
+                            PC mais fraco a ativar o modo de performance, pois poderá ter uma má experiencia na
+                            visualização do site.</li>
+                    </ul>
+                    <p class="fira-code x-small text-secondary mb-0">
+                        Podes alterar estas definições em qualquer momento no <span
+                            class="text-azul">SETTINGS_PANEL</span> (ícone de sliders no topo).
+                    </p>
+                </div>
+                <div
+                    class="modal-footer border-top border-azul py-2 d-flex justify-content-between align-items-center onboarding-footer">
+                    <div class="onboarding-checkbox-wrapper">
+                        <input type="checkbox" id="onboarding-dont-show" class="onboarding-checkbox">
+                        <label for="onboarding-dont-show"
+                            class="onboarding-checkbox-label fira-code x-small text-secondary mb-0">
+                            NAO_VOLTAR_A_MOSTRAR
+                        </label>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 onboarding-actions">
+                        <button type="button" class="btn btn-sm btn-outline-azul fira-code x-small"
+                            data-onboarding-action="open-settings">
+                            ABRIR_SETTINGS
+                        </button>
+                        <button type="button" class="btn btn-sm vice-btn btn-azul fira-code x-small"
+                            data-onboarding-cta="got-it">
+                            COMEÇAR_EXPLORACAO
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/darkmode.js"></script>
+    <script src="assets/js/geral.js"></script>
+
+</body>
+
+</html>

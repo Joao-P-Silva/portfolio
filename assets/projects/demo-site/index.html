@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Site Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="topbar">
+        <span class="brand">DEMO_SITE_v1</span>
+        <button id="themeBtn" class="theme-btn" type="button">Modo claro</button>
+    </header>
+
+    <main class="layout">
+        <section class="hero card">
+            <p class="kicker">Projeto Exemplo Completo</p>
+            <h1>Landing Page com Interacao</h1>
+            <p>
+                Este site vive numa pasta separada e pode ser aberto dentro do modal do portfolio.
+                Inclui tema, contador e cards de funcionalidades.
+            </p>
+            <div class="actions">
+                <button id="countBtn" class="btn-primary" type="button">Clique aqui</button>
+                <span id="countLabel" class="counter">Cliques: 0</span>
+            </div>
+        </section>
+
+        <section class="grid">
+            <article class="card">
+                <h2>Performance</h2>
+                <p>Estrutura simples, sem dependencias externas e carregamento rapido.</p>
+            </article>
+            <article class="card">
+                <h2>Responsivo</h2>
+                <p>Layout adaptado para desktop e mobile com CSS moderno.</p>
+            </article>
+            <article class="card">
+                <h2>Integravel</h2>
+                <p>Pronto para abrir em iframe do teu modal com caminho relativo.</p>
+            </article>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

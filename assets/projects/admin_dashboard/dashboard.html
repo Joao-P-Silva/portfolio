@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Mini Sidebar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Paleta de Cores Premium */
+            --bg-body: #f4f7f6;
+            --bg-sidebar: #111315;
+            /* Cinza quase preto */
+            --bg-sidebar-accent: #1a1d21;
+            /* Um pouco mais claro */
+            --text-main: #ecf0f1;
+            --text-muted: #8e9ca2;
+            --color-primary: #377dff;
+            /* Azul vibrante moderno */
+            --color-primary-dim: rgba(55, 125, 255, 0.1);
+
+            /* Dimensões */
+            --sidebar-width-full: 300px;
+            --sidebar-width-mini: 78px;
+            --transition-speed: 0.4s;
+            /* Transição mais suave */
+            --border-radius-sm: 8px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-body);
+            overflow-x: hidden;
+            color: #333;
+        }
+
+        #wrapper {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        /* --- Estilos da Sidebar Premium --- */
+        #sidebar {
+            min-width: var(--sidebar-width-full);
+            max-width: var(--sidebar-width-full);
+            background: var(--bg-sidebar);
+            color: var(--text-main);
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            /* Animação suave */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        /* Estado Recolhido */
+        #sidebar.collapsed {
+            min-width: var(--sidebar-width-mini);
+            max-width: var(--sidebar-width-mini);
+        }
+
+        /* Cabeçalho */
+        .sidebar-header {
+            padding: 1.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-header .logo-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            transition: opacity 0.2s ease;
+        }
+
+        #sidebar.collapsed .sidebar-header .logo-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        /* Botão Toggle Premium */
+        #sidebarCollapse {
+            background: var(--bg-sidebar-accent);
+            border: none;
+            color: var(--color-primary);
+            font-size: 1.3rem;
+            width: 42px;
+            height: 42px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #sidebarCollapse:hover {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(55, 125, 255, 0.3);
+        }
+
+        /* Centraliza o botão quando recolhido */
+        #sidebar.collapsed #sidebarCollapse {
+            margin: 0 auto;
+        }
+
+        /* Corpo do Menu */
+        #sidebar ul.components {
+            padding: 1.5rem 0.8rem;
+        }
+
+        #sidebar ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        #sidebar ul li a {
+            padding: 1rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+            /* Para a barra lateral de active */
+        }
+
+        /* Hover Effect Premium */
+        #sidebar ul li a:hover {
+            color: var(--text-main);
+            background: var(--bg-sidebar-accent);
+        }
+
+        /* Active Effect Premium */
+        #sidebar ul li.active>a {
+            color: var(--color-primary);
+            font-weight: 500;
+            background: var(--color-primary-dim);
+        }
+
+        /* Barrinha lateral no Active */
+        #sidebar ul li.active>a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15%;
+            height: 70%;
+            width: 4px;
+            background-color: var(--color-primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Ícones - Centralizados e Polidos */
+        #sidebar ul li a i {
+            margin-right: 1.2rem;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+            transition: all var(--transition-speed);
+        }
+
+        /* Ajustes quando recolhido (Collapsed) */
+        #sidebar.collapsed ul li a {
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        #sidebar.collapsed ul li a i {
+            margin-right: 0;
+            font-size: 1.3rem;
+        }
+
+        /* Removendo a barrinha lateral no modo mini, ou centralizando-a */
+        #sidebar.collapsed ul li.active>a::before {
+            display: none;
+        }
+
+        /* Esconde o texto do link */
+        .link-text {
+            transition: opacity 0.2s ease, transform 0.3s ease;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        #sidebar.collapsed .link-text {
+            opacity: 0;
+            transform: translateX(-10px);
+            display: none;
+        }
+
+        /* Footer da Sidebar (Opcional, para usuário) */
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1rem;
+            background: var(--bg-sidebar-accent);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            margin-right: 10px;
+        }
+
+        #sidebar.collapsed .sidebar-footer {
+            justify-content: center;
+        }
+
+        #sidebar.collapsed .avatar {
+            margin-right: 0;
+        }
+
+        #sidebar.collapsed .user-info {
+            display: none;
+        }
+
+        /* --- Conteúdo da Página --- */
+        #content {
+            width: 100%;
+            padding: 0;
+            transition: all var(--transition-speed);
+        }
+
+        /* Navbar Superior (Opcional, mas completa o visual) */
+        .top-navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            /* Efeito Glassmorphism */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+        }
+
+        .hover-primary:hover {
+            color: var(--color-primary) !important;
+            transition: 0.3s;
+        }
+
+        /* Garante que o footer fique sempre no fundo se a sidebar for longa */
+        .sidebar-footer {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Responsividade para Mobile */
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: calc(-1 * var(--sidebar-width-full));
+                position: fixed;
+            }
+
+            #sidebar.collapsed {
+                margin-left: 0;
+                min-width: var(--sidebar-width-full);
+                max-width: var(--sidebar-width-full);
+            }
+
+            #sidebar.collapsed .link-text {
+                opacity: 1;
+                display: inline;
+                transform: translateX(0);
+            }
+
+            #sidebar.collapsed ul li a i {
+                margin-right: 1.2rem;
+            }
+
+            #sidebar.collapsed ul li a {
+                justify-content: flex-start;
+                padding: 1rem 1.2rem;
+            }
+        }
+
+        /* Estilo do select de Status */
+        .status-select {
+            border-radius: 12px;
+            border-color: var(--color-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.55rem 0.9rem;
+            background-color: #f8f9fc;
+            color: #111315;
+            cursor: pointer;
+        }
+
+        .status-select:focus {
+            box-shadow: 0 0 0 0.15rem rgba(55, 125, 255, 0.3);
+            border-color: var(--color-primary);
+            outline: none;
+        }
+
+        /* Opções do select (lista aberta) */
+        .status-select option {
+            font-weight: 500;
+            padding: 0.35rem 0.75rem;
+        }
+
+        .status-select option[value="Sucesso"] {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-select option[value="Aviso"] {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+
+        .status-select option[value="Erro"] {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <nav id="sidebar" class="collapsed">
+            <div class="sidebar-header">
+                <span class="logo-text">ADMINISTRAÇÃO</span>
+                <button type="button" id="sidebarCollapse">
+                    <i class="bi bi-grid-fill"></i>
+                </button>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#">
+                        <i class="bi bi-speedometer2"></i>
+                        <span class="link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bi bi-hdd-stack"></i>
+                        <span class="link-text">Máquinas Virtuais</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bi bi-cloud"></i>
+                        <span class="link-text">Servidores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bi bi-shield-lock"></i>
+                        <span class="link-text">Monitoramento</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                        <span class="link-text">Backups</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer mt-auto">
+                <div class="d-flex align-items-center w-100">
+                    <!-- Avatar -->
+                    <div class="avatar bg-primary-subtle d-flex align-items-center justify-content-center rounded-circle"
+                        style="width: 45px; height: 45px; min-width: 45px;">
+                        <i class="bi bi-person text-primary" style="font-size: 1.2rem;"></i>
+                    </div>
+
+                    <!-- Info do Usuário (Esconde quando colapsado) -->
+                    <div class="user-info ms-1 flex-grow-1 overflow-hidden">
+                        <div class="fw-bold text-white text-truncate" style="font-size: 0.9rem;">Artur Nunes</div>
+                        <div class="text-white text-truncate" style="font-size: 0.75rem;">Diretor Empresarial</div>
+                    </div>
+
+                    <!-- Botão de Configurações (Esconde quando colapsado) -->
+                    <div class="user-info ms-2">
+                        <a href="#view-configuracoes" class="text-white hover-primary">
+                            <i class="bi bi-gear" style="font-size: 1.2rem"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="content">
+            <div class="top-navbar">
+                <h4 class="m-0 fw-600">Gestão do Servidor: </h4>
+            </div>
+
+            <div class="main-content container-fluid">
+                <!-- Linha de Status de Saúde do Sistema -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-3">
+                        <div class="card border-0 shadow-sm p-3" style="border-radius: 15px;">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-muted mb-1 small uppercase fw-bold">Uptime Global</h6>
+                                    <h3 class="fw-bold mb-0">99.98%</h3>
+                                </div>
+                                <div class="icon-box text-success fs-3">
+                                    <i class="bi bi-cloud-check"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2 small text-success">
+                                <i class="bi bi-arrow-up"></i> +0.02% <span class="text-muted ms-1">últimos 30
+                                    dias</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card border-0 shadow-sm p-3" style="border-radius: 15px;">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-muted mb-1 small uppercase fw-bold">Latência Média</h6>
+                                    <h3 class="fw-bold mb-0">42ms</h3>
+                                </div>
+                                <div class="icon-box text-primary fs-3">
+                                    <i class="bi bi-lightning-charge"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="progress" style="height: 6px; background: #eee;">
+                                    <div class="progress-bar bg-primary" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card border-0 shadow-sm p-3" style="border-radius: 15px;">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-muted mb-1 small uppercase fw-bold">Erros (24h)</h6>
+                                    <h3 class="fw-bold mb-0">12</h3>
+                                </div>
+                                <div class="icon-box text-danger fs-3">
+                                    <i class="bi bi-bug"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2 small text-danger">
+                                <i class="bi bi-exclamation-triangle"></i> Crítico: 0 <span class="text-muted ms-1">|
+                                    Aviso: 12</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card border-0 shadow-sm p-3" style="border-radius: 15px;">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-muted mb-1 small uppercase fw-bold">Storage Total</h6>
+                                    <h3 class="fw-bold mb-0">17TB</h3>
+                                </div>
+                                <div class="icon-box text-warning fs-3">
+                                    <i class="bi bi-hdd-stack"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2 medium">
+                                <div class="progress mb-2" style="height: 8px; background: #eee; border-radius: 10px;">
+                                    <div class="progress-bar bg-warning" role="progressbar"
+                                        style="width: 85%; border-radius: 10px;" aria-valuenow="85" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+
+                                <!-- Info por baixo: Valor Atual vs Limite -->
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold text-dark small">17 TB <span class="text-muted fw-normal">em
+                                            uso</span></span>
+                                    <span class="text-muted small">Limite: <span class="fw-bold text-dark">20
+                                            TB</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Coluna da Esquerda: Gráfico Simulado e Tabela -->
+                    <div class="col-lg-8">
+                        <!-- Tabela de Logs Recentes -->
+                        <button type="button" class="btn btn-primary mb-3 " data-bs-toggle="modal"
+                            data-bs-target="#addformulario">Adicionar Atualização</button>
+
+                        <div class="modal fade" id="addformulario" tabindex="-1" aria-labelledby="ModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="ModalLabel">Adicionar Atualização</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="logForm">
+                                            <input type="text" id="myInput" placeholder="Evento" class="form-control" required>
+                                            <input type="text" id="statusText" placeholder="Texto Status" class="form-control mt-3" required>
+                                            <label for="myInput2" class="form-label mt-3 mb-1 small text-muted">Tipo de status</label>
+                                            <select id="myInput2" class="form-select status-select" required>
+                                                <option value="" disabled selected>Selecione o tipo</option>
+                                                <option value="Sucesso">Sucesso</option>
+                                                <option value="Aviso">Aviso</option>
+                                                <option value="Erro">Erro</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" id="btnSalvarLog" data-bs-dismiss="modal" class="btn btn-success mt-3">Enviar Atualização</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+                            <h5 class="fw-bold mb-3 text-dark">Atualização do Sistema</h5>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="border-0">Atualização</th>
+                                            <th class="border-0">Horas</th>
+                                            <th class="border-0">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-muted" id="logTableBody">
+                                        <tr>
+                                            <td>Backup Automático</td>
+                                            <td>15 Março, 11:45</td>
+                                            <td><span
+                                                    class="badge bg-success-subtle text-success rounded-pill">Sucesso</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Substituição de Memória RAM</td>
+                                            <td>1 Abril, 14:20</td>
+                                            <td><span
+                                                    class="badge bg-danger-subtle text-danger rounded-pill">Erro 1001</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna da Direita: Status dos Serviços -->
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+                            <h5 class="fw-bold mb-4 text-dark">Servidores Ativos</h5>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="p-2 bg-success rounded-circle me-3" style="width: 12px; height: 12px;">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small">Servidor de Backups</div>
+                                    <div class="text-muted small">Ultima Verificação: 10:30</div>
+                                </div>
+                                <div class="text-success fw-bold small">Online</div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="p-2 bg-success rounded-circle me-3" style="width: 12px; height: 12px;">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small">Servidor Clientes</div>
+                                    <div class="text-muted small">Ultima Verificação: 09:15</div>
+                                </div>
+                                <div class="text-success fw-bold small">Online</div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4 text-opacity-50">
+                                <div class="p-2 bg-primary rounded-circle me-3" style="width: 12px; height: 12px;">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small">Servidor Interno</div>
+                                    <div class="text-primary-emphasis small">Em Manutenção</div>
+                                </div>
+                                <div class="text-muted fw-bold small">Offline</div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <a class="btn btn-primary w-100 py-2 fw-bold" style="border-radius: 10px;"
+                                href="servidores.html">
+                                Ver Todos os Servidores <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Controle da Sidebar
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebarCollapse');
+
+    toggleBtn.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+    });
+
+    // 2. Lógica para Adicionar Log na Tabela
+    const btnSalvar = document.getElementById('btnSalvarLog');
+    const logTableBody = document.getElementById('logTableBody');
+    const logModalElement = document.getElementById('addformulario');
+    const bootstrapModal = new bootstrap.Modal(logModalElement); // Instância do Bootstrap
+
+    btnSalvar.addEventListener('click', function () {
+        // Pegar valores
+        const evento = document.getElementById('myInput').value.trim();
+        const statusText = document.getElementById('statusText').value.trim();
+        const statusType = document.getElementById('myInput2').value;
+        
+        // Data atual formatada (Ex: Mar 26, 17:15)
+        const agora = new Date();
+        const dataFormatada = agora.toLocaleDateString('pt-BR', { month: 'long', day: 'numeric' }) + ", " + 
+                             agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+        if (!evento) {
+            alert("Por favor, digite o nome do evento.");
+            return;
+        }
+
+        if (!statusText) {
+            alert("Por favor, escreva o texto que aparece no status.");
+            return;
+        }
+
+        if (!statusType) {
+            alert("Por favor, selecione o tipo de status.");
+            return;
+        }
+
+        // Definir a cor da badge baseada no tipo de status selecionado
+        let badgeClass = "bg-success-subtle text-success";
+        if (statusType === "Aviso") badgeClass = "bg-warning-subtle text-warning";
+        if (statusType === "Erro") badgeClass = "bg-danger-subtle text-danger";
+
+        // Criar nova linha
+        const novaLinha = document.createElement('tr');
+        novaLinha.innerHTML = `
+            <td>${evento}</td>
+            <td>${dataFormatada}</td>
+            <td><span class="badge ${badgeClass} rounded-pill">${statusText}</span></td>
+        `;
+
+        // Inserir no topo da tabela
+        logTableBody.prepend(novaLinha);
+
+        // Limpar formulário e fechar modal
+        document.getElementById('logForm').reset();
+        bootstrapModal.hide();
+    });
+});
+
+    </script>
+</body>
+
+</html>
