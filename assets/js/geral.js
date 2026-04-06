@@ -173,7 +173,7 @@ function openLabPreview(title) {
 	const previewFrame = document.getElementById('previewFrame');
 	if (!modalTitle || !previewFrame || !myModal || !previewFrame.contentWindow) return;
 
-	modalTitle.innerText = `PROJECT_PREVIEW // ${title}`;
+	modalTitle.innerText = ` ${title}`;
 	myModal.show();
 
 	setTimeout(() => {
