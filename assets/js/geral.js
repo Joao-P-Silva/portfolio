@@ -162,6 +162,12 @@ function openPreview(url, title) {
 	const previewFrame = document.getElementById('previewFrame');
 	if (!modalTitle || !previewFrame || !myModal) return;
 
+	const isSmallViewport = window.innerWidth < 1100;
+	if (isSmallViewport) {
+		window.open(url, '_blank');
+		return;
+	}
+
 	modalTitle.innerText = `${title}`;
 	currentPreviewUrl = url;
 	previewFrame.src = url;
